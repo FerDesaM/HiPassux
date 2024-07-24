@@ -148,7 +148,7 @@ Las contribuciones son bienvenidas. Por favor, sigue los siguientes pasos para c
 
 Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
 
-## Buenas Prácticas
+## Buenas Prácticas LAB 09
 
 ### Nombres de Variables y Funciones:
 
@@ -340,3 +340,7 @@ class UserRepository:
         db.session.add(user)
         db.session.commit()
 ```
+
+
+## Buenas Prácticas LAB 010 SOLID
+
