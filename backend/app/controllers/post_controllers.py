@@ -29,3 +29,4 @@ def create_post():
     
     # If GET, just show the form
     return render_template('new_post.html')
+

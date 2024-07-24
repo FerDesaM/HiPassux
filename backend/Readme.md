@@ -341,6 +341,114 @@ class UserRepository:
         db.session.commit()
 ```
 
-
 ## Buenas Prácticas LAB 010 SOLID
 
+# Single Responsibility Principle (SRP)
+
+Principio: Una clase o módulo debe tener una sola responsabilidad o motivo para cambiar.
+Por ejemplo en nuestro proyecto estamos diviendo a User en:
+
+```python
+# models.py
+class User(db.Model):
+    # Definición de la entidad usuario
+
+# services/user_service.py
+class UserService:
+
+    @staticmethod
+    def get_all_users():
+        return UserRepository.get_all_users()
+
+# controllers/user_controller.py
+@bp.route('/users', methods=['GET'])
+def get_users():
+    users = UserService.get_all_users()
+    return render_template('users.html', users=users)
+```
+# Open/Closed Principle (OCP)
+
+Principio: El código debe estar abierto para extensión, pero cerrado para modificación.
+
+```python
+# controllers/user_controller.py
+from flask import Blueprint, render_template, request , redirect, url_for
+from app.domain.services.user_service import UserService
+from datetime import datetime
+
+bp = Blueprint('user', __name__)
+
+@bp.route('/users', methods=['GET'])
+def get_users():
+    # Lógica para obtener usuarios
+
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+    # Lógica para crear usuario
+```
+
+# Liskov Substitution Principle (LSP)
+
+Principio: Los objetos de una clase derivada deben poder reemplazar objetos de la clase base sin alterar el comportamiento esperado del programa.
+
+```python
+# domain/repositories/base_repository.py
+class BaseRepository:
+    def add(self, entity):
+        pass
+
+    def remove(self, entity):
+        pass
+
+# domain/repositories/user_repository.py
+from app.domain.entities.user import db, User
+from app.domain.repositories.base_repository import BaseRepository
+
+class UserRepository(BaseRepository):
+
+    @staticmethod
+    def get_all_users():
+        return User.query.all()
+        # Obtiene todos los usuarios de la base de datos.
+
+    def add(self, user):
+        db.session.add(user)
+        db.session.commit()
+        # Añade un usuario a la base de datos y confirma la transacción.
+
+    def remove(self, user):
+        db.session.delete(user)
+        db.session.commit()
+        # Elimina un usuario de la base de datos y confirma la transacción.
+```
+
+# Dependency Inversion Principle (DIP)
+
+Principio: Los módulos de alto nivel no deben depender de módulos de bajo nivel, sino de abstracciones.
+
+```python
+from app.domain.repositories.user_repository import User,UserRepository
+
+class UserService:
+
+    def __init__(self, user_repository):
+        self.user_repository = user_repository
+
+    @staticmethod
+    def get_all_users(self):
+        return self.UserRepository.get_all_users()
+
+    @staticmethod
+    def create_user(self ,username, first_name, last_name, birth_date, phone_number, gender, email, password):
+        new_user = User(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            birth_date=birth_date,
+            phone_number=phone_number,
+            gender=gender,
+            email=email,
+            password=password
+        )
+        self.UserRepository.add_user(new_user)
+```
