@@ -1,5 +1,35 @@
 # PASSUX
 
+## Índice
+
+1. [Descripción](#descripción)
+2. [Estructura del Proyecto](#estructura-del-proyecto)
+3. [Instalación](#instalación)
+4. [Uso](#uso)
+5. [Estructura del Código](#estructura-del-código)
+6. [Contribuciones](#contribuciones)
+7. [Licencia](#licencia)
+8. [Buenas Prácticas LAB 09](#buenas-prácticas-lab-09)
+   - [Nombres de Variables y Funciones](#nombres-de-variables-y-funciones)
+   - [Nombres de Clases](#nombres-de-clases)
+   - [Nombres de Constantes](#nombres-de-constantes)
+   - [Indentación](#indentación)
+   - [Líneas en Blanco](#líneas-en-blanco)
+   - [Manejo de Errores](#manejo-de-errores)
+   - [Uso de F-Strings](#uso-de-f-strings)
+9. [Code Smells](#code-smells)
+   - [Código Repetido](#código-repetido)
+   - [Funciones Grandes](#funciones-grandes)
+10. [Bugs](#bugs)
+   - [Errores de Referencia](#errores-de-referencia)
+11. [Vulnerabilidades](#vulnerabilidades)
+12. [Buenas Prácticas LAB 010 SOLID](#buenas-prácticas-lab-010-solid)
+    - [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+    - [Open/Closed Principle (OCP)](#openclosed-principle-ocp)
+    - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+    - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+
+
 ## Descripción
 
 Esta es una aplicación web desarrollada con Flask, utilizando un enfoque de **Domain-Driven Design (DDD)** y **Model-View-Controller (MVC)**. La aplicación está configurada para trabajar con una base de datos MySQL utilizando `PyMySQL` y `Flask-Migrate` para manejar las migraciones.
@@ -341,9 +371,9 @@ class UserRepository:
         db.session.commit()
 ```
 
-## Buenas Prácticas LAB 010 SOLID
+# Buenas Prácticas LAB 010 SOLID
 
-# Single Responsibility Principle (SRP)
+## Single Responsibility Principle (SRP)
 
 Principio: Una clase o módulo debe tener una sola responsabilidad o motivo para cambiar.
 Por ejemplo en nuestro proyecto estamos diviendo a User en:
@@ -366,7 +396,7 @@ def get_users():
     users = UserService.get_all_users()
     return render_template('users.html', users=users)
 ```
-# Open/Closed Principle (OCP)
+## Open/Closed Principle (OCP)
 
 Principio: El código debe estar abierto para extensión, pero cerrado para modificación.
 
@@ -387,7 +417,7 @@ def register():
     # Lógica para crear usuario
 ```
 
-# Liskov Substitution Principle (LSP)
+## Liskov Substitution Principle (LSP)
 
 Principio: Los objetos de una clase derivada deben poder reemplazar objetos de la clase base sin alterar el comportamiento esperado del programa.
 
@@ -422,7 +452,7 @@ class UserRepository(BaseRepository):
         # Elimina un usuario de la base de datos y confirma la transacción.
 ```
 
-# Dependency Inversion Principle (DIP)
+## Dependency Inversion Principle (DIP)
 
 Principio: Los módulos de alto nivel no deben depender de módulos de bajo nivel, sino de abstracciones.
 
