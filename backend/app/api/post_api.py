@@ -20,7 +20,10 @@ def get_post(post_id):
 @post_api.route('/', methods=['POST'])
 def create_post():
     data = request.json
-    new_post = PostService.create_post(data)
+    new_post = PostService.create_post(
+        data.get('content'),
+        data.get('user_id')
+    )
     return jsonify(new_post.to_dict()), 201
 
 @post_api.route('/<int:post_id>', methods=['PUT'])

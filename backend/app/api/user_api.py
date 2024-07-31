@@ -20,7 +20,15 @@ def get_user(user_id):
 @user_api.route('/', methods=['POST'])
 def create_user():
     data = request.json
-    new_user = UserService.create_user(data)
+    new_user = UserService.create_user(
+        data['first_name'],
+        data['last_name'],
+        data['birth_date'],
+        data['phone_number'],
+        data['gender'],
+        data['email'],
+        data['password']
+    )
     return jsonify(new_user.to_dict()), 201
 
 @user_api.route('/<int:user_id>', methods=['PUT'])
