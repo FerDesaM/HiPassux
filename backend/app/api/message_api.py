@@ -13,7 +13,8 @@ def get_message(message_id):
     message = MessageService.get_message_by_id(message_id)
     if message:
         return jsonify(message.to_dict())
-    return jsonify({'error': 'Message not found'}), 404
+
+    return jsonify({'error': error_Message}), 404
 
 @message_api.route('/', methods=['POST'])
 def create_message():
@@ -27,11 +28,13 @@ def update_message(message_id):
     updated_message = MessageService.update_message(message_id, data)
     if updated_message:
         return jsonify(updated_message.to_dict())
-    return jsonify({'error': 'Message not found'}), 404
+    return jsonify({'error': error_Message}), 404
+
 
 @message_api.route('/<int:message_id>', methods=['DELETE'])
 def delete_message(message_id):
     success = MessageService.delete_message(message_id)
     if success:
         return jsonify({'message': 'Message deleted successfully'})
-    return jsonify({'error': 'Message not found'}), 404
+
+    return jsonify({'error': error_Message}), 404

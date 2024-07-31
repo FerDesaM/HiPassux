@@ -13,7 +13,10 @@ def get_comment(comment_id):
     comment = CommentService.get_comment_by_id(comment_id)
     if comment:
         return jsonify(comment.to_dict())
-    return jsonify({'error': 'Comment not found'}), 404
+
+
+    return jsonify({'error': error_Comment}), 404
+
 
 @comment_api.route('/', methods=['POST'])
 def create_comment():
@@ -27,11 +30,15 @@ def update_comment(comment_id):
     updated_comment = CommentService.update_comment(comment_id, data)
     if updated_comment:
         return jsonify(updated_comment.to_dict())
-    return jsonify({'error': 'Comment not found'}), 404
+
+    return jsonify({'error': error_Comment}), 404
+
 
 @comment_api.route('/<int:comment_id>', methods=['DELETE'])
 def delete_comment(comment_id):
     success = CommentService.delete_comment(comment_id)
     if success:
         return jsonify({'message': 'Comment deleted successfully'})
-    return jsonify({'error': 'Comment not found'}), 404
+
+    return jsonify({'error': error_Comment}), 404
+
